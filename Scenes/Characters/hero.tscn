@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhwew2te0c046"]
+
+[ext_resource type="Script" path="res://Scripts/Hero/hero.gd" id="1_m5ccw"]
+[ext_resource type="Texture2D" uid="uid://dgx2e8j2uqmbe" path="res://bitmap.png" id="2_ul15x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wmwib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ul15x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p643s"]
+size = Vector2(22, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0sii"]
+size = Vector2(24, 39)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+process_mode = 1
+position = Vector2(299, 154)
+script = ExtResource("1_m5ccw")
+
+[node name="coyote_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+position = Vector2(-8.50001, 2)
+scale = Vector2(0.0465995, 0.0863758)
+sprite_frames = SubResource("SpriteFrames_wmwib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+modulate = Color(0.490196, 0, 0, 1)
+position = Vector2(-9, 4)
+shape = SubResource("RectangleShape2D_p643s")
+
+[node name="wall_colliders" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_colliders"]
+position = Vector2(-9, 3.5)
+shape = SubResource("RectangleShape2D_w0sii")
+
+[connection signal="timeout" from="coyote_timer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="child_entered_tree" from="wall_colliders" to="." method="_on_wall_collider"]

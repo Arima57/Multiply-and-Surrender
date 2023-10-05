@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dafdc4aldd7aj"]
+
+[ext_resource type="Script" path="res://Scripts/StateMachine/camera_2d.gd" id="1_dpspx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46ny3"]
+radius = 40.3113
+
+[node name="Area2D" type="Area2D"]
+process_mode = 3
+script = ExtResource("1_dpspx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.3, 1.3)
+limit_left = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_46ny3")
