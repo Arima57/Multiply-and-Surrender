@@ -19,6 +19,9 @@ var JUMP_VELOCITY = -700.0
 var coyote_timer:Timer
 var clone_serial:int
 var tween:Tween
+var tween1:Tween
+var bounce:bool = false
+var bounce_dir:int = 0
 ##Extremely specific purpose
 ###########################
 var is_coyote:bool=true
@@ -35,6 +38,15 @@ var bounceable:= [["wall", "idle"]]
 func _process(delta):
 	if position.x < 5:
 		position.x = 5
+	if Input.is_physical_key_pressed(KEY_E):
+		print(velocity.x)
+	if Input.is_action_just_pressed("dash") or \
+	velocity.y > 200 or \
+	is_on_wall_only():
+		bounce = false
+	
+	
+	
 
 func _physics_process(delta):
 	#### Checking whether the plyer is dead yet
@@ -47,28 +59,43 @@ func _physics_process(delta):
 	
 	if hero_state[1] ==  "dash":
 		tween = get_tree().create_tween()
-		tween.tween_property(self, "position", position - Vector2(dir_fix() * -20, 20), 0.15)
-		tween.tween_property(self, "position", position + Vector2(dir_fix() * -400, -20), 0.2).set_ease(Tween.EASE_OUT)
+		if hero_state[0] == "ground":
+			tween.tween_property(self, "position", position - Vector2(dir_fix() * -20, 20), 0.15)
+			tween.tween_property(self, "position", position + Vector2(dir_fix() * -400, -20), 0.2).set_ease(Tween.EASE_OUT)
+		else:
+			tween.tween_property(self, "position", position - Vector2(dir_fix() * -20, 0), 0.15)
+			tween.tween_property(self, "position", position + Vector2(dir_fix() * -400, 0), 0.2).set_ease(Tween.EASE_OUT)
 		hero_state[1] = "idle"
 		
 	if hero_state in bounceable:
-		position.y += (gravity / 40) * delta
-		
+		velocity.y = 7000 * delta
+
+	
 	#Handle coyote jump timer
 	if hero_state[0] == "coyote" and coyote_start == true:
 		$coyote_timer.start(coyote_TIME)
 		coyote_start = false
 	if hero_state in air_states:
 		velocity.y += gravity * delta
+		
+
+
 	if clone_serial == stateMachine.current_hero:
 	
 	
 	# Handle Jump
-		if (hero_state in jumpable_states or is_first_jump == true)  and Input.is_action_just_pressed("jump") and hero_state not in bounceable:
+		if (hero_state in jumpable_states or is_first_jump == true or is_on_wall_only())  and Input.is_action_just_pressed("jump"):
 			is_coyote = false
 			if hero_state not in jumpable_states:
 				is_first_jump = false
 			velocity.y = JUMP_VELOCITY
+			if is_on_wall_only():
+				velocity.x = bounce_dir * SPEED
+				velocity.y = 1.3 * JUMP_VELOCITY
+				bounce = true
+				is_first_jump = true
+
+
 	
 		movement_machine()
 	
@@ -80,19 +107,21 @@ func _physics_process(delta):
 			stateMachine.despawn()
 	else:
 		if hero_state in movables:
+			print(hero_state)
 			velocity.x = 0
 	move_and_slide()
 
 
 
 func movement_machine():
-	if hero_state in movables:
+	if hero_state in movables and not bounce:
 		direction = Input.get_axis("ui_left", "ui_right")
 		if direction == 1:
 			animation_player.flip_h = false
 		elif direction == -1:
 			animation_player.flip_h = true
-	velocity.x = direction * SPEED	
+	if not bounce:
+		velocity.x = direction * SPEED
 
 
 func _on_coyote_timer_timeout():
@@ -113,13 +142,17 @@ func pos_fix(spawn_position:Vector2):
 	
 
 
-func _on_wall_collider(node):
-	pass
-
-
 func dir_fix():
 	if animation_player.flip_h:
 		return 1
 	else:
 		return -1
 
+
+
+func _on_left_body_entered(body):
+	bounce_dir = 1
+	
+
+func _on_right_body_entered(body):
+	bounce_dir = -1

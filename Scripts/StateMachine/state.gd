@@ -13,6 +13,8 @@ const max_clone_bar_value:float = 100
 var dashAllowed:bool = true
 @onready var clone_coolTime:int = 10
 @onready var dash_coolTime:int = 5
+
+
 #### Common Grounds, handoff
 func handle(player):
 	var state:String
@@ -32,7 +34,6 @@ func handle(player):
 func handle_hero(player):
 	if player.velocity.y > 200 and player.is_on_wall_only():
 		return "wall"
-
 	if not player.is_on_floor():
 			if player.is_coyote:
 				return "coyote"
@@ -82,7 +83,9 @@ func _process(delta):
 		if current_hero < clone_limit:
 			if current_clone_bar_value == 100.0:
 				mc_clone_call()
-	if not get_tree().paused: 
+				
+
+	if not get_tree().paused:
 		if Input.is_action_just_pressed("jump") or \
 		Input.is_action_just_pressed("attack") or \
 		camera_target.is_on_wall():
@@ -100,6 +103,8 @@ func _process(delta):
 			cloneBarTween = create_tween()
 			cloneBarTween.tween_property(self, "current_clone_bar_value", 100.0, ((max_clone_bar_value - current_clone_bar_value) / 100) * clone_coolTime)
 			cloneBarTween.tween_callback(func(): cloneBarTween = null)
+
+
 
 
 func _on_dash_cooled_down():
