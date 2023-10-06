@@ -3,38 +3,38 @@
 [ext_resource type="Script" path="res://Scripts/StateMachine/clone_meter.gd" id="1_kjehq"]
 [ext_resource type="Texture2D" uid="uid://djce7y3buqq8e" path="res://Resources/HUD_elements/clone_heads_up_meter.png" id="2_pp2nh"]
 [ext_resource type="Texture2D" uid="uid://mecuyrl32chb" path="res://Resources/HUD_elements/clone_heads_up_bar.png" id="3_73k6v"]
-[ext_resource type="Texture2D" uid="uid://decoarvk24kl" path="res://Resources/HUD_elements/clone_heads_up.png" id="4_kbuhe"]
+[ext_resource type="Texture2D" uid="uid://decoarvk24kl" path="res://Resources/HUD_elements/clone_heads_up.png" id="4_iu7xg"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hcuvu"]
-atlas = ExtResource("4_kbuhe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cogce"]
+atlas = ExtResource("4_iu7xg")
 region = Rect2(98, 0, 98, 99)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_njb5s"]
-atlas = ExtResource("4_kbuhe")
-region = Rect2(294, 0, 98, 99)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dn816"]
-atlas = ExtResource("4_kbuhe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_36q06"]
+atlas = ExtResource("4_iu7xg")
 region = Rect2(0, 0, 98, 99)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6j48b"]
-atlas = ExtResource("4_kbuhe")
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0vnw"]
+atlas = ExtResource("4_iu7xg")
 region = Rect2(196, 0, 98, 99)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_r4vc1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek8fw"]
+atlas = ExtResource("4_iu7xg")
+region = Rect2(294, 0, 98, 99)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m6kua"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hcuvu")
+"texture": SubResource("AtlasTexture_cogce")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_njb5s")
+"texture": SubResource("AtlasTexture_36q06")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dn816")
+"texture": SubResource("AtlasTexture_u0vnw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6j48b")
+"texture": SubResource("AtlasTexture_ek8fw")
 }],
 "loop": true,
 "name": &"default",
@@ -44,28 +44,20 @@ animations = [{
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
 
-[node name="cloneBar" type="TextureProgressBar" parent="."]
-z_index = 20
-anchors_preset = -1
-anchor_left = 0.859
-anchor_right = 1.0
-anchor_bottom = 0.931
-offset_left = 15.4319
-offset_top = 110.0
-offset_right = -46.0
-offset_bottom = -392.288
-step = 0.0
-value = 75.0
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 972.0
+offset_top = 92.0
+offset_right = 1082.0
+offset_bottom = 202.0
 fill_mode = 4
 nine_patch_stretch = true
 texture_under = ExtResource("2_pp2nh")
 texture_progress = ExtResource("3_73k6v")
 script = ExtResource("1_kjehq")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="cloneBar"]
-z_index = 20
-position = Vector2(51, 49)
-scale = Vector2(0.640306, 0.619949)
-sprite_frames = SubResource("SpriteFrames_r4vc1")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TextureProgressBar"]
+position = Vector2(55, 53.5)
+scale = Vector2(0.734694, 0.717172)
+sprite_frames = SubResource("SpriteFrames_m6kua")
 autoplay = "default"
-frame_progress = 0.704587
+frame_progress = 0.358504

@@ -1,16 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhwew2te0c046"]
 
 [ext_resource type="Script" path="res://Scripts/Hero/hero.gd" id="1_m5ccw"]
-[ext_resource type="Texture2D" uid="uid://dgx2e8j2uqmbe" path="res://bitmap.png" id="2_ul15x"]
+[ext_resource type="Script" path="res://Scripts/Hero/AnimatedSprite2D.gd" id="3_4vllb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wmwib"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_ul15x")
-}],
+"frames": [],
 "loop": true,
-"name": &"default",
+"name": &"Idle",
 "speed": 5.0
 }]
 
@@ -18,10 +15,9 @@ animations = [{
 size = Vector2(22, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w0sii"]
-size = Vector2(5.5, 31)
+size = Vector2(9, 33.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-process_mode = 1
 position = Vector2(299, 154)
 collision_layer = 2
 collision_mask = 5
@@ -35,22 +31,25 @@ process_mode = 3
 position = Vector2(-8.50001, 2)
 scale = Vector2(0.0465995, 0.0863758)
 sprite_frames = SubResource("SpriteFrames_wmwib")
+animation = &"Idle"
+autoplay = "Idle"
+script = ExtResource("3_4vllb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-modulate = Color(0.490196, 0, 0, 1)
+modulate = Color(1, 0.937255, 0.92549, 1)
 position = Vector2(-9, 4)
 shape = SubResource("RectangleShape2D_p643s")
 
 [node name="wall_colliders" type="Area2D" parent="."]
 
 [node name="left" type="CollisionShape2D" parent="wall_colliders"]
-position = Vector2(-19.5, 2.5)
+position = Vector2(-20, 4)
 shape = SubResource("RectangleShape2D_w0sii")
 
 [node name="wall_colliders2" type="Area2D" parent="."]
 
 [node name="right" type="CollisionShape2D" parent="wall_colliders2"]
-position = Vector2(2.25, 3)
+position = Vector2(2, 4)
 shape = SubResource("RectangleShape2D_w0sii")
 
 [connection signal="timeout" from="coyote_timer" to="." method="_on_coyote_timer_timeout"]

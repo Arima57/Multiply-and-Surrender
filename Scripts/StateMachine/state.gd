@@ -108,6 +108,7 @@ func _process(delta):
 
 
 func _on_dash_cooled_down():
+	print("done")
 	dashAllowed = true
 
 func mc_clone_call():

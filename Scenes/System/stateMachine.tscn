@@ -10,6 +10,7 @@ script = ExtResource("1_v7gdi")
 one_shot = true
 
 [node name="dash_cooldown" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="clone_cooldown" to="." method="_on_clone_cooled_down"]
 [connection signal="timeout" from="dash_cooldown" to="." method="_on_dash_cooled_down"]

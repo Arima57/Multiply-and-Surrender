@@ -10,20 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Multiply and Surrender"
+config/name="Random"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 stateMachine="*res://Scenes/System/stateMachine.tscn"
-
-[display]
-
-window/size/resizable=false
-window/size/window_width_override=1152
-window/size/window_height_override=648
-window/stretch/aspect="ignore"
 
 [dotnet]
 
@@ -63,7 +56,7 @@ dash={
 
 [layer_names]
 
-2d_physics/layer_1="Walls and colliders"
+2d_physics/layer_1="Walls"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemies"
 

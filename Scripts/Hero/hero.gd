@@ -38,8 +38,6 @@ var bounceable:= [["wall", "idle"]]
 func _process(delta):
 	if position.x < 5:
 		position.x = 5
-	if Input.is_physical_key_pressed(KEY_E):
-		print(velocity.x)
 	if Input.is_action_just_pressed("dash") or \
 	velocity.y > 200 or \
 	is_on_wall_only():
@@ -107,7 +105,6 @@ func _physics_process(delta):
 			stateMachine.despawn()
 	else:
 		if hero_state in movables:
-			print(hero_state)
 			velocity.x = 0
 	move_and_slide()
 
@@ -116,10 +113,6 @@ func _physics_process(delta):
 func movement_machine():
 	if hero_state in movables and not bounce:
 		direction = Input.get_axis("ui_left", "ui_right")
-		if direction == 1:
-			animation_player.flip_h = false
-		elif direction == -1:
-			animation_player.flip_h = true
 	if not bounce:
 		velocity.x = direction * SPEED
 
@@ -150,9 +143,8 @@ func dir_fix():
 
 
 
-func _on_left_body_entered(body):
+func _on_left_body_entered(_body):
 	bounce_dir = 1
-	
 
-func _on_right_body_entered(body):
+func _on_right_body_entered(_body):
 	bounce_dir = -1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cf32i5dyswtbn"]
+[gd_scene load_steps=6 format=3 uid="uid://cf32i5dyswtbn"]
 
 [ext_resource type="PackedScene" uid="uid://c1ato24v8rs48" path="res://Scenes/System/hud.tscn" id="2_4ww2m"]
 [ext_resource type="PackedScene" uid="uid://dafdc4aldd7aj" path="res://Scenes/camera_2d.tscn" id="2_askh7"]
@@ -13,16 +13,12 @@ func _ready():
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2io8"]
-size = Vector2(778.375, 38)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xkij"]
-size = Vector2(1576.38, 38)
+size = Vector2(796.75, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkskm"]
 size = Vector2(796.75, 37.5)
 
 [node name="Node2D" type="Node2D"]
-process_mode = 1
 script = SubResource("GDScript_3qx7t")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -40,15 +36,15 @@ offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1415.81, 670)
-shape = SubResource("RectangleShape2D_0xkij")
-metadata/_edit_lock_ = true
+position = Vector2(1026, 670)
+shape = SubResource("RectangleShape2D_j2io8")
 
 [node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D7"]
-offset_left = -622.0
+offset_left = -392.0
 offset_top = -22.0
-offset_right = 785.0
+offset_right = 393.0
 offset_bottom = 18.0
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(50, 573)
@@ -85,7 +81,7 @@ offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(2075, 199)
+position = Vector2(1344, -95)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_rkskm")
 
@@ -97,7 +93,7 @@ offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(2176, 370)
+position = Vector2(1560, 99)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_rkskm")
 
@@ -130,10 +126,18 @@ offset_right = 393.0
 offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1911, -263)
+shape = SubResource("RectangleShape2D_j2io8")
+
+[node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D10"]
+offset_left = -392.0
+offset_top = -22.0
+offset_right = 393.0
+offset_bottom = 18.0
+metadata/_edit_lock_ = true
+
 [node name="Camera2D" parent="." instance=ExtResource("2_askh7")]
 position = Vector2(312, -309)
 
 [node name="HUD" parent="." instance=ExtResource("2_4ww2m")]
-
-[editable path="Camera2D"]
-[editable path="HUD"]
