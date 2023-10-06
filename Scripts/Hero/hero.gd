@@ -13,7 +13,7 @@ var JUMP_VELOCITY = -700.0
 ##################
 @onready var hero_state:= ["air", "idle"]
 @onready var direction:int = 1
-@onready var animation_player:= $Sprite2D
+@onready var animation_player:= $AnimatedSprite2D
 ### Unitialozed strong values, usually very important
 #####################################################
 var coyote_timer:Timer
@@ -38,6 +38,8 @@ var bounceable:= [["wall", "idle"]]
 func _process(delta):
 	if position.x < 5:
 		position.x = 5
+	if Input.is_physical_key_pressed(KEY_E):
+		print(velocity.x)
 	if Input.is_action_just_pressed("dash") or \
 	velocity.y > 200 or \
 	is_on_wall_only():
@@ -105,6 +107,7 @@ func _physics_process(delta):
 			stateMachine.despawn()
 	else:
 		if hero_state in movables:
+			print(hero_state)
 			velocity.x = 0
 	move_and_slide()
 
@@ -113,6 +116,10 @@ func _physics_process(delta):
 func movement_machine():
 	if hero_state in movables and not bounce:
 		direction = Input.get_axis("ui_left", "ui_right")
+		if direction == 1:
+			animation_player.flip_h = false
+		elif direction == -1:
+			animation_player.flip_h = true
 	if not bounce:
 		velocity.x = direction * SPEED
 
