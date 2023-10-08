@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf32i5dyswtbn"]
+[gd_scene load_steps=10 format=3 uid="uid://cf32i5dyswtbn"]
 
 [ext_resource type="PackedScene" uid="uid://c1ato24v8rs48" path="res://Scenes/System/hud.tscn" id="2_4ww2m"]
-[ext_resource type="PackedScene" uid="uid://dafdc4aldd7aj" path="res://Scenes/camera_2d.tscn" id="2_askh7"]
+[ext_resource type="PackedScene" uid="uid://dafdc4aldd7aj" path="res://Scenes/camera_2d.tscn" id="3_7y81a"]
+[ext_resource type="PackedScene" uid="uid://2tmuqn271hgl" path="res://Scenes/Characters/Enemies/Prototype/enemy_prototype.tscn" id="3_8ywsf"]
 
 [sub_resource type="GDScript" id="GDScript_3qx7t"]
 script/source = "extends Node2D
@@ -10,15 +11,26 @@ script/source = "extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	stateMachine.spawn($\".\")
+
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2io8"]
-size = Vector2(796.75, 38)
+size = Vector2(784.375, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ir8v2"]
+size = Vector2(3404.38, 38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkskm"]
 size = Vector2(796.75, 37.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2b8m"]
+size = Vector2(3087.19, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t80p5"]
+size = Vector2(3087.19, 3221)
+
 [node name="Node2D" type="Node2D"]
+texture_filter = 2
 script = SubResource("GDScript_3qx7t")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -36,15 +48,14 @@ offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1026, 670)
-shape = SubResource("RectangleShape2D_j2io8")
+position = Vector2(2329.81, 670)
+shape = SubResource("RectangleShape2D_ir8v2")
 
 [node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D7"]
-offset_left = -392.0
+offset_left = -1529.0
 offset_top = -22.0
-offset_right = 393.0
+offset_right = 1799.0
 offset_bottom = 18.0
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(50, 573)
@@ -62,6 +73,17 @@ position = Vector2(994, 506)
 shape = SubResource("RectangleShape2D_j2io8")
 
 [node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D3"]
+offset_left = -392.0
+offset_top = -22.0
+offset_right = 393.0
+offset_bottom = 18.0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2121, 523)
+shape = SubResource("RectangleShape2D_j2io8")
+
+[node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D11"]
 offset_left = -392.0
 offset_top = -22.0
 offset_right = 393.0
@@ -127,7 +149,7 @@ offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D10" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1911, -263)
+position = Vector2(1947, -270)
 shape = SubResource("RectangleShape2D_j2io8")
 
 [node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D10"]
@@ -137,7 +159,41 @@ offset_right = 393.0
 offset_bottom = 18.0
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" parent="." instance=ExtResource("2_askh7")]
-position = Vector2(312, -309)
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(5241, 670)
+shape = SubResource("RectangleShape2D_k2b8m")
+
+[node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D12"]
+offset_left = -1259.0
+offset_top = -22.0
+offset_right = 1677.0
+offset_bottom = 18.0
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(8038, -398)
+shape = SubResource("RectangleShape2D_t80p5")
+
+[node name="Panel" type="Panel" parent="StaticBody2D/CollisionShape2D13"]
+offset_left = -1220.0
+offset_top = -788.0
+offset_right = 1716.0
+offset_bottom = -748.0
 
 [node name="HUD" parent="." instance=ExtResource("2_4ww2m")]
+
+[node name="Enemy Prototype" parent="." instance=ExtResource("3_8ywsf")]
+position = Vector2(2419, 585)
+
+[node name="CollisionShape2D" parent="Enemy Prototype/Library/AreaWatchOver/Area2D" index="0"]
+position = Vector2(-2202.7, -1204.52)
+
+[node name="CollisionShape2D" parent="Enemy Prototype/Library/AreaWatchOver/Area2D2" index="0"]
+position = Vector2(410.34, -93.88)
+
+[node name="CollisionShape2D" parent="Enemy Prototype/Library/Hitbox" index="0"]
+position = Vector2(990.68, 589.805)
+
+[node name="Area2D" parent="." instance=ExtResource("3_7y81a")]
+
+[editable path="Enemy Prototype"]
+[editable path="Enemy Prototype/Library/Hitbox"]

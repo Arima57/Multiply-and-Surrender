@@ -2,16 +2,18 @@ extends CharacterBody2D
 ### Constants
 #############
 const type:= "hero"
-const SPEED = 300.0
+const SPEED = 300
+const accel = 50
 const coyote_TIME:float = 0.4
 #### Mostly constants fttb, but may change who knows
 ####################################################
 @export var hero_health:int = 100
+@export var velocity_max:int = 300
 var gravity = 2500
 var JUMP_VELOCITY = -700.0
 ###Values at start
 ##################
-@onready var hero_state:= ["air", "idle"]
+@export var hero_state:= ["air", "idle"]
 @onready var direction:int = 1
 @onready var animation_player:= $AnimatedSprite2D
 ### Unitialozed strong values, usually very important
@@ -35,6 +37,11 @@ var movables:= [["ground", "idle"], ["air", "idle"], ["air", "attack"], ["coyote
 var bounceable:= [["wall", "idle"]]
 
 
+
+func _ready():
+	hero_state = ["air", "idle"]
+
+
 func _process(delta):
 	if position.x < 5:
 		position.x = 5
@@ -42,7 +49,10 @@ func _process(delta):
 	velocity.y > 200 or \
 	is_on_wall_only():
 		bounce = false
-	
+	if velocity.x > velocity_max:
+		velocity.x = velocity_max
+	if velocity.x < -1 * velocity_max:
+		velocity.x = -1 * velocity_max
 	
 	
 
@@ -51,9 +61,24 @@ func _physics_process(delta):
 	if hero_health == 0:
 		stateMachine.clone_list.erase(self)  ## Deleting the dead from the 
 		if self != stateMachine.camera_target:
+			if animation_player.animation == "idle":
+				animation_player.play("Dash")
+				await  animation_player.animation_finished
 			self.queue_free() 
-	# Check the current state
+		else:
+			if animation_player.animation == "idle":
+				animation_player.play("Dash")
+				await  animation_player.animation_finished
+			stateMachine.camera_target = null
+			stateMachine.clone_list.clear()
+			get_tree().change_scene_to_file("res://Scenes/Levels/DeathScene.tscn")
+
+#	if Input.is_action_just_pressed("attack") and self == stateMachine.camera_target:
+#		hero_state[1] = "attack" ###It was at that the game is multiply and surrender and not fight
+
 	hero_state[0] = stateMachine.handle($".")
+	if hero_state[0] != "ground" and hero_state[1] == "attack":
+		hero_state[1] = "idle"
 	
 	if hero_state[1] ==  "dash":
 		tween = get_tree().create_tween()
@@ -64,6 +89,7 @@ func _physics_process(delta):
 			tween.tween_property(self, "position", position - Vector2(dir_fix() * -20, 0), 0.15)
 			tween.tween_property(self, "position", position + Vector2(dir_fix() * -400, 0), 0.2).set_ease(Tween.EASE_OUT)
 		hero_state[1] = "idle"
+		
 		
 	if hero_state in bounceable:
 		velocity.y = 7000 * delta
@@ -95,7 +121,7 @@ func _physics_process(delta):
 
 
 	
-		movement_machine()
+		movement_machine(delta)
 	
 	
 		############################
@@ -110,11 +136,15 @@ func _physics_process(delta):
 
 
 
-func movement_machine():
+func movement_machine(delta):
 	if hero_state in movables and not bounce:
 		direction = Input.get_axis("ui_left", "ui_right")
 	if not bounce:
-		velocity.x = direction * SPEED
+		velocity.x += direction * accel
+		if direction == 0:
+			velocity.x = 0
+	if hero_state[1] == "attack":
+		velocity.x = 0
 
 
 func _on_coyote_timer_timeout():
@@ -141,7 +171,13 @@ func dir_fix():
 	else:
 		return -1
 
-
+func knockback(knock_dir):
+	$AnimationPlayer.play("Hurt")
+	if knock_dir > 0:
+		velocity.x = 5000
+	else:
+		velocity.x = -5000
+	move_and_slide()
 
 func _on_left_body_entered(_body):
 	bounce_dir = 1

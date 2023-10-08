@@ -45,10 +45,12 @@ animations = [{
 process_mode = 3
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+texture_filter = 6
 offset_left = 972.0
 offset_top = 92.0
 offset_right = 1082.0
 offset_bottom = 202.0
+value = 50.0
 fill_mode = 4
 nine_patch_stretch = true
 texture_under = ExtResource("2_pp2nh")

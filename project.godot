@@ -10,13 +10,17 @@ config_version=5
 
 [application]
 
-config/name="Random"
+config/name="Multiply and Surrender"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 stateMachine="*res://Scenes/System/stateMachine.tscn"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -64,3 +68,6 @@ dash={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/size/viewport_height=648
+anti_aliasing/size/viewport_width=1152
+anti_aliasing/stretch/mode="viewport"

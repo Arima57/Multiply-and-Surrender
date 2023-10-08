@@ -18,7 +18,7 @@ func _physics_process(delta):
 		camera.offset = Vector2(rng.randf_range(5, -5), rng.randf_range(5, -5))
 		if cam_zoomer == null:
 			cam_zoomer = create_tween()
-			cam_zoomer.tween_property(camera, "zoom", Vector2(1.8, 1.8), 1)
+			cam_zoomer.tween_property(camera, "zoom", Vector2(1.5, 1.5), 1)
 			cam_zoomer.tween_callback(func(): cam_zoomer = null)
 	else:
 		camera.offset = default_offset
