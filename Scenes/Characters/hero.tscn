@@ -414,8 +414,9 @@ animations = [{
 "speed": 16.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mu0m4"]
-size = Vector2(25, 46)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2lsya"]
+radius = 11.5
+height = 46.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w0sii"]
 size = Vector2(9, 32.75)
@@ -508,7 +509,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8kt61"]
 size = Vector2(34.0625, 35.3648)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="hero" type="CharacterBody2D"]
+z_index = 50
 texture_filter = 2
 position = Vector2(299, 154)
 collision_layer = 18
@@ -538,7 +540,7 @@ modulate = Color(1, 0.937255, 0.92549, 1)
 light_mask = 2
 visibility_layer = 2
 position = Vector2(-9.5, 4)
-shape = SubResource("RectangleShape2D_mu0m4")
+shape = SubResource("CapsuleShape2D_2lsya")
 
 [node name="wall_colliders" type="Area2D" parent="."]
 
@@ -576,8 +578,13 @@ collision_mask = 32
 position = Vector2(-53.5937, 24.8363)
 shape = SubResource("RectangleShape2D_8kt61")
 
+[node name="Hitbox checker" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="coyote_timer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="body_entered" from="wall_colliders" to="." method="_on_left_body_entered"]
 [connection signal="body_entered" from="wall_colliders2" to="." method="_on_right_body_entered"]
+[connection signal="body_exited" from="Library/Hitbox" to="Library/Hitbox" method="_on_body_exited"]
+[connection signal="timeout" from="Hitbox checker" to="." method="_on_hitbox_checker_timeout"]
 
 [editable path="Library/Hitbox"]

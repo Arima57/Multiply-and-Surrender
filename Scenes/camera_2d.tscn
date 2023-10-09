@@ -21,7 +21,6 @@ script = ExtResource("1_dpspx")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.15, 1.15)
-limit_left = 0
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
@@ -32,9 +31,10 @@ shape = SubResource("CircleShape2D_46ny3")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0.500004, -9.53674e-07)
 scale = Vector2(1.60938, 1.75)
-color = Color(1, 0.996078, 0.117647, 0.87451)
-energy = 2.48
+color = Color(0.937255, 0.870588, 0.427451, 1)
+energy = 2.0
 shadow_enabled = true
 shadow_filter = 2
+shadow_filter_smooth = 20.1
 texture = SubResource("GradientTexture2D_oefvx")
 texture_scale = 1.88

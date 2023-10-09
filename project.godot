@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="Multiply and Surrender"
+run/main_scene="res://january.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://hood.png"
+config/windows_native_icon="res://hood.ico"
 
 [autoload]
 

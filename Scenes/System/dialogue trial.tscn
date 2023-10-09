@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://clx3ed0t2ytc3"]
+
+[sub_resource type="GDScript" id="GDScript_dpyre"]
+resource_name = "dialogue trial"
+script/source = "extends Node2D
+
+func _ready():
+	novelsys.playlist = [\"res://dialogues/TEST\"]
+	novelsys.play()
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_dpyre")

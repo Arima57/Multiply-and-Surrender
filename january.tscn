@@ -1,18 +1,26 @@
-[gd_scene load_steps=27 format=3 uid="uid://cbui3ys2aplvf"]
+[gd_scene load_steps=35 format=3 uid="uid://cbui3ys2aplvf"]
 
-[ext_resource type="PackedScene" uid="uid://cvccx4o70ej5m" path="res://Scenes/Forest/forest_bg.tscn" id="1_0q7q8"]
 [ext_resource type="Script" path="res://january.gd" id="1_kqyfn"]
+[ext_resource type="Texture2D" uid="uid://efbp0ac7x5qr" path="res://Resources/Forest parallax/Layer_0009_2.png" id="2_5hoc7"]
 [ext_resource type="Texture2D" uid="uid://c3rhbdbbaty62" path="res://Resources/HUD_elements/button normal.png" id="3_1k53x"]
+[ext_resource type="Texture2D" uid="uid://dl2j5874i3r8i" path="res://Resources/Forest parallax/Layer_0008_3.png" id="3_fa2l0"]
 [ext_resource type="FontFile" uid="uid://cnlnoqaafphav" path="res://Resources/HUD_elements/SAOUI-Regular.otf" id="4_762ro"]
 [ext_resource type="Texture2D" uid="uid://bs1qpev2uw3gd" path="res://Resources/HUD_elements/button clicked.png" id="4_qur4s"]
+[ext_resource type="Texture2D" uid="uid://dxq2rhnc5xsbb" path="res://Resources/Forest parallax/Layer_0006_4.png" id="4_v4blp"]
 [ext_resource type="Texture2D" uid="uid://bgrp7apiggi5w" path="res://Resources/HUD_elements/buttton hover.png" id="5_akpa4"]
+[ext_resource type="Texture2D" uid="uid://57p0j2qggcn6" path="res://Resources/Forest parallax/Layer_0002_7.png" id="5_s4idd"]
+[ext_resource type="Texture2D" uid="uid://d0t12aub10y12" path="res://Resources/Forest parallax/Layer_0005_5.png" id="6_3hcgh"]
+[ext_resource type="Texture2D" uid="uid://d1l8jj8ridysj" path="res://Resources/Forest parallax/Layer_0003_6.png" id="7_425av"]
 [ext_resource type="Texture2D" uid="uid://betb7mlwd03i4" path="res://Resources/Tiles/Green/1 Tiles/Tile_23.png" id="7_tbbk5"]
 [ext_resource type="Texture2D" uid="uid://d2uvf16mk6xi5" path="res://Resources/Tiles/Green/1 Tiles/Tile_44.png" id="8_0r2eg"]
+[ext_resource type="Texture2D" uid="uid://o0gb1yae2x77" path="res://Resources/Forest parallax/Layer_0000_9.png" id="8_21r5b"]
 [ext_resource type="Texture2D" uid="uid://dwtisum4v2qkm" path="res://Resources/Tiles/Green/1 Tiles/Tile_46.png" id="9_jrpp5"]
 [ext_resource type="Texture2D" uid="uid://df8rlv11v77qd" path="res://Resources/Tiles/Green/1 Tiles/Tile_47.png" id="10_gxy87"]
 [ext_resource type="Texture2D" uid="uid://cddagt7fcikyl" path="res://Resources/Tiles/Green/1 Tiles/Tile_48.png" id="11_qacqe"]
 [ext_resource type="Texture2D" uid="uid://xt28dugm0roe" path="res://Resources/Tiles/Green/1 Tiles/Tile_61.png" id="12_mphow"]
 [ext_resource type="Texture2D" uid="uid://pt6c6u5ifqa8" path="res://Resources/Tiles/Green/1 Tiles/Tile_62.png" id="13_ayyxw"]
+[ext_resource type="Texture2D" uid="uid://cny78xkfxp026" path="res://Resources/Sprites/Duck/cs50 duck.png" id="14_8an1v"]
+[ext_resource type="PackedScene" uid="uid://bewip5aq7q8g3" path="res://Scenes/System/novelsys.tscn" id="15_7lnms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1u6c1"]
 size = Vector2(5013, 534)
@@ -147,7 +155,105 @@ shape = SubResource("RectangleShape2D_1u6c1")
 position = Vector2(908, 176)
 shape = SubResource("RectangleShape2D_4kqex")
 
-[node name="ForestBG" parent="." instance=ExtResource("1_0q7q8")]
+[node name="ForestBG" type="ParallaxBackground" parent="."]
+metadata/_edit_horizontal_guides_ = [172.0, 172.0]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ForestBG"]
+position = Vector2(8, 136)
+motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(1130, 0)
+
+[node name="Layer00092" type="Sprite2D" parent="ForestBG/ParallaxLayer"]
+position = Vector2(626, -141.062)
+scale = Vector2(1.37116, 1.62437)
+texture = ExtResource("2_5hoc7")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ForestBG"]
+position = Vector2(8, 136)
+motion_scale = Vector2(0.4, 0)
+motion_mirroring = Vector2(1275, 0)
+
+[node name="Layer00083" type="Sprite2D" parent="ForestBG/ParallaxLayer2"]
+position = Vector2(643, -138)
+scale = Vector2(1.40571, 1.52112)
+texture = ExtResource("3_fa2l0")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ForestBG"]
+position = Vector2(8, 136)
+motion_scale = Vector2(0.6, 0)
+motion_mirroring = Vector2(1270, 0)
+
+[node name="Layer00064" type="Sprite2D" parent="ForestBG/ParallaxLayer3"]
+position = Vector2(740, -165.625)
+scale = Vector2(1.60668, 1.66866)
+texture = ExtResource("4_v4blp")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ForestBG"]
+position = Vector2(8, 136)
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(800, 0)
+
+[node name="Layer00027" type="Sprite2D" parent="ForestBG/ParallaxLayer5"]
+position = Vector2(598, -23)
+scale = Vector2(1.35345, 1.10151)
+texture = ExtResource("5_s4idd")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ForestBG"]
+motion_scale = Vector2(0.8, 0)
+motion_mirroring = Vector2(1175, 0)
+
+[node name="Layer00055" type="Sprite2D" parent="ForestBG/ParallaxLayer4"]
+position = Vector2(651, 97.9999)
+scale = Vector2(1.33405, 1.2913)
+texture = ExtResource("6_3hcgh")
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ForestBG"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1200, 0)
+
+[node name="Layer00036" type="Sprite2D" parent="ForestBG/ParallaxLayer6"]
+position = Vector2(580, 79)
+scale = Vector2(1.57812, 1.56084)
+texture = ExtResource("7_425av")
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ForestBG"]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1200, 0)
+
+[node name="Layer00009" type="Sprite2D" parent="ForestBG/ParallaxLayer7"]
+position = Vector2(748, 192)
+scale = Vector2(1.68481, 0.900694)
+texture = ExtResource("8_21r5b")
+
+[node name="Layer00010" type="Sprite2D" parent="ForestBG/ParallaxLayer7"]
+position = Vector2(736, 226)
+scale = Vector2(1.68481, 0.900694)
+texture = ExtResource("8_21r5b")
+
+[node name="Layer00011" type="Sprite2D" parent="ForestBG/ParallaxLayer7"]
+position = Vector2(740, 265)
+scale = Vector2(1.68481, 0.900694)
+texture = ExtResource("8_21r5b")
+
+[node name="Layer00012" type="Sprite2D" parent="ForestBG/ParallaxLayer7"]
+position = Vector2(744, 295)
+scale = Vector2(1.68481, 0.900694)
+texture = ExtResource("8_21r5b")
+
+[node name="Layer00013" type="Sprite2D" parent="ForestBG/ParallaxLayer7"]
+position = Vector2(746, 324)
+scale = Vector2(1.68481, 0.900694)
+texture = ExtResource("8_21r5b")
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="ForestBG"]
+motion_scale = Vector2(0, 0)
+
+[node name="Novelsys" parent="ForestBG/ParallaxLayer8" instance=ExtResource("15_7lnms")]
+z_as_relative = true
+
+[node name="Cs50Duck" type="Sprite2D" parent="ForestBG/ParallaxLayer8"]
+position = Vector2(636, 92)
+texture = ExtResource("14_8an1v")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 offset_left = 441.0
@@ -190,8 +296,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene Changer"]
-position = Vector2(2251, 763)
+position = Vector2(2226, 1950)
 shape = SubResource("RectangleShape2D_a7tga")
+
+[node name="CanvasGroup" type="ParallaxBackground" parent="."]
+follow_viewport_enabled = true
 
 [connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="body_entered" from="Scene Changer" to="." method="_on_scene_changer_body_entered"]

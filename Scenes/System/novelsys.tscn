@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://bewip5aq7q8g3"]
+
+[ext_resource type="Script" path="res://Scripts/Novelsys/Novelsys.gd" id="1_7hnt2"]
+[ext_resource type="Script" path="res://Scripts/Novelsys/VNsystem.gd" id="2_vxgqa"]
+
+[node name="Novelsys" type="Node2D"]
+process_mode = 3
+z_index = 4096
+z_as_relative = false
+script = ExtResource("1_7hnt2")
+
+[node name="VNsystem" type="Node2D" parent="."]
+script = ExtResource("2_vxgqa")
+
+[node name="scrolltimer" type="Timer" parent="VNsystem"]
+one_shot = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VNsystem"]
+offset_left = 234.0
+offset_top = 457.0
+offset_right = 950.0
+offset_bottom = 589.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+
+[node name="Name" type="RichTextLabel" parent="VNsystem"]
+offset_left = 126.0
+offset_top = 424.0
+offset_right = 303.0
+offset_bottom = 489.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = 99.0
+offset_top = 433.0
+offset_right = 1064.0
+offset_bottom = 624.0
+
+[connection signal="timeout" from="VNsystem/scrolltimer" to="VNsystem" method="_on_scroll_timer_timeout"]

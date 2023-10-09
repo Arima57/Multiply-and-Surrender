@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c1ato24v8rs48" path="res://Scenes/System/hud.tscn" id="2_4ww2m"]
 [ext_resource type="PackedScene" uid="uid://dafdc4aldd7aj" path="res://Scenes/camera_2d.tscn" id="3_7y81a"]
-[ext_resource type="PackedScene" uid="uid://2tmuqn271hgl" path="res://Scenes/Characters/Enemies/Prototype/enemy_prototype.tscn" id="3_8ywsf"]
+[ext_resource type="PackedScene" uid="uid://dk76a6an5lyfq" path="res://Scenes/Characters/Enemies/Prototype/Vagabond.tscn" id="3_h32s3"]
 
 [sub_resource type="GDScript" id="GDScript_3qx7t"]
 script/source = "extends Node2D
@@ -181,19 +181,7 @@ offset_bottom = -748.0
 
 [node name="HUD" parent="." instance=ExtResource("2_4ww2m")]
 
-[node name="Enemy Prototype" parent="." instance=ExtResource("3_8ywsf")]
-position = Vector2(2419, 585)
-
-[node name="CollisionShape2D" parent="Enemy Prototype/Library/AreaWatchOver/Area2D" index="0"]
-position = Vector2(-2202.7, -1204.52)
-
-[node name="CollisionShape2D" parent="Enemy Prototype/Library/AreaWatchOver/Area2D2" index="0"]
-position = Vector2(410.34, -93.88)
-
-[node name="CollisionShape2D" parent="Enemy Prototype/Library/Hitbox" index="0"]
-position = Vector2(990.68, 589.805)
-
 [node name="Area2D" parent="." instance=ExtResource("3_7y81a")]
 
-[editable path="Enemy Prototype"]
-[editable path="Enemy Prototype/Library/Hitbox"]
+[node name="Vagabond" parent="." instance=ExtResource("3_h32s3")]
+position = Vector2(3776.53, 533.28)

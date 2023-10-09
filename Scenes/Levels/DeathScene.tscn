@@ -13,15 +13,6 @@ script/source = "extends Node
 func _process(delta):
 	$ForestBG.scroll_offset.x -= 150 * delta
 
-
-
-
-func _on_texture_button_button_up():
-	var buttonTween := get_tree().create_tween()
-	buttonTween.tween_property($TextureButton, \"modulate\", Color(1, 1, 1, 0), 0.2)
-	buttonTween.tween_callback(func():
-		$TextureButton.queue_free()
-		get_tree().change_scene_to_file(\"res://Scenes/Levels/Exclusion.tscn\") )
 "
 
 [node name="Node" type="Node"]

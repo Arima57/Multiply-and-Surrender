@@ -326,7 +326,6 @@ func _on_timer_timeout():
 
 
 func _on_pauses_timeout():
-	print(\"Timeout\")
 	if !chase:
 		chase = true
 		$Timer.paused = true
@@ -343,7 +342,7 @@ func _on_pauses_timeout():
 size = Vector2(740, 88.8799)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yepoq"]
-size = Vector2(1354, 271.72)
+size = Vector2(1099, 666.72)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dt6rw"]
 size = Vector2(47, 14.08)
@@ -354,6 +353,7 @@ collision_layer = 36
 script = ExtResource("1_87geb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(24, 33)
 shape = SubResource("RectangleShape2D_gmt3t")
 
@@ -366,7 +366,7 @@ autoplay = "Idle"
 script = SubResource("GDScript_s30wp")
 
 [node name="alert" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
-position = Vector2(-10.24, -26.24)
+position = Vector2(-1.85508, -23.8859)
 scale = Vector2(0.322855, 0.283017)
 sprite_frames = SubResource("SpriteFrames_vijcw")
 autoplay = "default"
@@ -393,7 +393,6 @@ metadata/_edit_use_anchors_ = true
 one_shot = true
 
 [node name="Area2D" type="Area2D" parent="Library/AreaWatchOver"]
-visible = false
 position = Vector2(2631.54, 1148.36)
 collision_mask = 2
 
@@ -406,7 +405,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Library/AreaWatchOver/Area2D2"]
 z_index = -3
-position = Vector2(428.84, -101.74)
+position = Vector2(422.34, -299.24)
 shape = SubResource("RectangleShape2D_yepoq")
 
 [node name="Pauses" type="Timer" parent="Library/AreaWatchOver"]
@@ -415,6 +414,7 @@ one_shot = true
 [node name="Random_Pauses" type="Timer" parent="Library/AreaWatchOver"]
 
 [node name="Hitbox" parent="Library" instance=ExtResource("3_ks6xd")]
+visible = false
 position = Vector2(-553.84, -649.405)
 collision_layer = 4
 collision_mask = 16

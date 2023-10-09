@@ -12,7 +12,7 @@ var cloneBarTween:Tween
 var cloneBarReverse:Tween
 const max_clone_bar_value:float = 100
 var dashAllowed:bool = true
-@onready var clone_coolTime:int = 20
+@onready var clone_coolTime:int = 13
 @onready var dash_coolTime:int = 1
 
 
@@ -144,7 +144,10 @@ func mc_clone_call():
 func attack(body:CharacterBody2D , host:CharacterBody2D):
 	if host.type == "hero":
 		host.hero_health -= 10
+#		if body.type == "high_grade": ##wudve done this but realized it made him too op
+#			host.hero_health -= 10
 		host.knockback((host.global_position - body.global_position).x)
+		host.hitbox_checker.start(0.5)
 	if host.type == "low_grade":
 		host.HP = 0
 		body.velocity.y = -400

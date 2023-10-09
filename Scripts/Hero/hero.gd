@@ -16,12 +16,14 @@ var JUMP_VELOCITY = -700.0
 @export var hero_state:= ["air", "idle"]
 @onready var direction:int = 1
 @onready var animation_player:= $AnimatedSprite2D
+@onready var hitbox_checker:= $"Hitbox checker"
 ### Unitialozed strong values, usually very important
 #####################################################
 var coyote_timer:Timer
 var clone_serial:int
 var tween:Tween
 var tween1:Tween
+var adversary:CharacterBody2D = null
 var bounce:bool = false
 var bounce_dir:int = 0
 ##Extremely specific purpose
@@ -43,8 +45,6 @@ func _ready():
 
 
 func _process(delta):
-	if position.x < 5:
-		position.x = 5
 	if Input.is_action_just_pressed("dash") or \
 	velocity.y > 200 or \
 	is_on_wall_only():
@@ -53,12 +53,14 @@ func _process(delta):
 		velocity.x = velocity_max
 	if velocity.x < -1 * velocity_max:
 		velocity.x = -1 * velocity_max
+	if velocity.y > 2500:
+		velocity.y = 2500
 	
 	
 
 func _physics_process(delta):
 	#### Checking whether the plyer is dead yet
-	if hero_health == 0:
+	if hero_health < 1:
 		stateMachine.clone_list.erase(self)  ## Deleting the dead from the 
 		if self != stateMachine.camera_target:
 			if animation_player.animation == "idle":
@@ -158,10 +160,7 @@ func get_type():
 
 func pos_fix(spawn_position:Vector2):
 	spawn_position.x += 200 * dir_fix()
-	if spawn_position.x < 5:
-		return Vector2(5,spawn_position.y)
-	else:
-		return spawn_position
+	return spawn_position
 	
 
 
@@ -184,3 +183,10 @@ func _on_left_body_entered(_body):
 
 func _on_right_body_entered(_body):
 	bounce_dir = -1
+
+
+
+
+func _on_hitbox_checker_timeout():
+	if adversary != null:
+		stateMachine.attack(adversary, self)

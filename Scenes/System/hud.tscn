@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c1ato24v8rs48"]
+[gd_scene load_steps=13 format=3 uid="uid://c1ato24v8rs48"]
 
 [ext_resource type="Script" path="res://Scripts/StateMachine/clone_meter.gd" id="1_kjehq"]
 [ext_resource type="Texture2D" uid="uid://djce7y3buqq8e" path="res://Resources/HUD_elements/clone_heads_up_meter.png" id="2_pp2nh"]
 [ext_resource type="Texture2D" uid="uid://mecuyrl32chb" path="res://Resources/HUD_elements/clone_heads_up_bar.png" id="3_73k6v"]
 [ext_resource type="Texture2D" uid="uid://decoarvk24kl" path="res://Resources/HUD_elements/clone_heads_up.png" id="4_iu7xg"]
+[ext_resource type="Texture2D" uid="uid://d1r3q0bxb78ot" path="res://Resources/HUD_elements/Pixel1_Healthbar_0003_pi.png" id="5_rger0"]
+[ext_resource type="Texture2D" uid="uid://dpdoag4la4sya" path="res://Resources/HUD_elements/Progress.png" id="6_nb3rf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cogce"]
 atlas = ExtResource("4_iu7xg")
@@ -41,6 +43,15 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_7o7m5"]
+script/source = "extends TextureProgressBar
+
+
+func _physics_process(delta):
+	if stateMachine.camera_target != null:
+		value = stateMachine.camera_target.hero_health
+"
+
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
 
@@ -63,3 +74,14 @@ scale = Vector2(0.734694, 0.717172)
 sprite_frames = SubResource("SpriteFrames_m6kua")
 autoplay = "default"
 frame_progress = 0.358504
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="."]
+offset_left = 82.0
+offset_top = 82.0
+offset_right = 296.0
+offset_bottom = 117.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("5_rger0")
+texture_progress = ExtResource("6_nb3rf")
+script = SubResource("GDScript_7o7m5")

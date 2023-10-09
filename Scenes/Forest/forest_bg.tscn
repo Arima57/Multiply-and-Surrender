@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvccx4o70ej5m"]
+[gd_scene load_steps=10 format=3 uid="uid://cvccx4o70ej5m"]
 
 [ext_resource type="Texture2D" uid="uid://efbp0ac7x5qr" path="res://Resources/Forest parallax/Layer_0009_2.png" id="1_mketg"]
 [ext_resource type="Texture2D" uid="uid://dl2j5874i3r8i" path="res://Resources/Forest parallax/Layer_0008_3.png" id="2_itgb3"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://d0t12aub10y12" path="res://Resources/Forest parallax/Layer_0005_5.png" id="5_253f6"]
 [ext_resource type="Texture2D" uid="uid://57p0j2qggcn6" path="res://Resources/Forest parallax/Layer_0002_7.png" id="5_qpk4x"]
 [ext_resource type="Texture2D" uid="uid://d1l8jj8ridysj" path="res://Resources/Forest parallax/Layer_0003_6.png" id="6_1uycu"]
+[ext_resource type="PackedScene" uid="uid://bewip5aq7q8g3" path="res://Scenes/System/novelsys.tscn" id="8_apwfr"]
+[ext_resource type="Texture2D" uid="uid://cny78xkfxp026" path="res://Resources/Sprites/Duck/cs50 duck.png" id="9_gw6wh"]
 
 [node name="ForestBG" type="ParallaxBackground"]
 metadata/_edit_horizontal_guides_ = [172.0, 172.0]
@@ -97,3 +99,13 @@ texture = ExtResource("4_0b122")
 position = Vector2(746, 324)
 scale = Vector2(1.68481, 0.900694)
 texture = ExtResource("4_0b122")
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+
+[node name="Novelsys" parent="ParallaxLayer8" instance=ExtResource("8_apwfr")]
+z_as_relative = true
+
+[node name="Cs50Duck" type="Sprite2D" parent="ParallaxLayer8"]
+position = Vector2(636, 92)
+texture = ExtResource("9_gw6wh")

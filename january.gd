@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var novelsys = $ForestBG/ParallaxLayer8/Novelsys
 var camera
 func _ready():
 	stateMachine.spawn($".", Vector2(1763, 0))
@@ -14,7 +15,10 @@ func _on_texture_button_button_up():
 	buttonTween.tween_callback(func():
 		$TextureButton.queue_free()
 		add_child(camera)
-		camera.camera.limit_bottom = 500)
+		camera.camera.limit_bottom = 500
+		novelsys.playlist = ["res://dialogues/TEST"]
+		novelsys.play()
+)
 
 
 func _on_scene_changer_body_entered(body):
