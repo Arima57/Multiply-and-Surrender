@@ -38,7 +38,6 @@ func display_next_line():
 	scroll_timer.start(waitTime)
 
 func _on_scroll_timer_timeout():
-	print("timeout")
 	if currentLineIndex < textLines.size() - 1 :
 		diag = textLines[currentLineIndex]
 		if diag == "":

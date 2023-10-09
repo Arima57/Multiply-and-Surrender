@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cbui3ys2aplvf"]
+[gd_scene load_steps=44 format=3 uid="uid://cbui3ys2aplvf"]
 
 [ext_resource type="Script" path="res://january.gd" id="1_kqyfn"]
 [ext_resource type="Texture2D" uid="uid://efbp0ac7x5qr" path="res://Resources/Forest parallax/Layer_0009_2.png" id="2_5hoc7"]
@@ -14,19 +14,72 @@
 [ext_resource type="Texture2D" uid="uid://betb7mlwd03i4" path="res://Resources/Tiles/Green/1 Tiles/Tile_23.png" id="7_tbbk5"]
 [ext_resource type="Texture2D" uid="uid://d2uvf16mk6xi5" path="res://Resources/Tiles/Green/1 Tiles/Tile_44.png" id="8_0r2eg"]
 [ext_resource type="Texture2D" uid="uid://o0gb1yae2x77" path="res://Resources/Forest parallax/Layer_0000_9.png" id="8_21r5b"]
+[ext_resource type="Script" path="res://Scripts/Novelsys/Novelsys.gd" id="9_hbvws"]
 [ext_resource type="Texture2D" uid="uid://dwtisum4v2qkm" path="res://Resources/Tiles/Green/1 Tiles/Tile_46.png" id="9_jrpp5"]
+[ext_resource type="Script" path="res://Scripts/Novelsys/VNsystem.gd" id="10_8mkm0"]
 [ext_resource type="Texture2D" uid="uid://df8rlv11v77qd" path="res://Resources/Tiles/Green/1 Tiles/Tile_47.png" id="10_gxy87"]
 [ext_resource type="Texture2D" uid="uid://cddagt7fcikyl" path="res://Resources/Tiles/Green/1 Tiles/Tile_48.png" id="11_qacqe"]
+[ext_resource type="FontFile" uid="uid://b6akkloml0xjh" path="res://Resources/Fonts/Retro Gaming.ttf" id="11_v3qrt"]
 [ext_resource type="Texture2D" uid="uid://xt28dugm0roe" path="res://Resources/Tiles/Green/1 Tiles/Tile_61.png" id="12_mphow"]
+[ext_resource type="Texture2D" uid="uid://c6bwch65d4yh" path="res://Resources/HUD_elements/Untitled.png" id="12_n7w6l"]
+[ext_resource type="Texture2D" uid="uid://bir4hupg5kp0d" path="res://Resources/David/David.png" id="12_ufykv"]
 [ext_resource type="Texture2D" uid="uid://pt6c6u5ifqa8" path="res://Resources/Tiles/Green/1 Tiles/Tile_62.png" id="13_ayyxw"]
-[ext_resource type="Texture2D" uid="uid://cny78xkfxp026" path="res://Resources/Sprites/Duck/cs50 duck.png" id="14_8an1v"]
-[ext_resource type="PackedScene" uid="uid://bewip5aq7q8g3" path="res://Scenes/System/novelsys.tscn" id="15_7lnms"]
+[ext_resource type="Texture2D" uid="uid://c6cmeyqc2ys7k" path="res://Resources/David/Hooded Protag.png" id="13_bi6nf"]
+[ext_resource type="Texture2D" uid="uid://bqwat51wdnkw7" path="res://Resources/Sprites/Hooded_thief.png" id="14_k73ii"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1u6c1"]
 size = Vector2(5013, 534)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kqex"]
 size = Vector2(115, 625)
+
+[sub_resource type="Theme" id="Theme_s5k4f"]
+default_font = ExtResource("11_v3qrt")
+default_font_size = 16
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdg36"]
+atlas = ExtResource("14_k73ii")
+region = Rect2(192, 0, 64, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2ap5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_ufykv")
+}],
+"loop": true,
+"name": &"David",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_bi6nf")
+}],
+"loop": true,
+"name": &"Nameless",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdg36")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_jw4pr"]
+resource_name = "dialogue header"
+script/source = "extends AnimatedSprite2D
+
+func _process(_delta):
+	if $\"../Name\".text == \"Nameless\":
+		play(\"Nameless\")
+	elif $\"../Name\".text == \"David\":
+		play(\"David\")
+	else:
+		play(\"default\")
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pu2jl"]
 texture = ExtResource("7_tbbk5")
@@ -143,9 +196,11 @@ size = Vector2(93, 561.25)
 size = Vector2(741, 401)
 
 [node name="Node2D" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_kqyfn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-474.5, 715)
@@ -248,12 +303,54 @@ texture = ExtResource("8_21r5b")
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="ForestBG"]
 motion_scale = Vector2(0, 0)
 
-[node name="Novelsys" parent="ForestBG/ParallaxLayer8" instance=ExtResource("15_7lnms")]
-z_as_relative = true
+[node name="Novelsys" type="Node2D" parent="ForestBG/ParallaxLayer8"]
+process_mode = 3
+z_index = 4096
+z_as_relative = false
+script = ExtResource("9_hbvws")
 
-[node name="Cs50Duck" type="Sprite2D" parent="ForestBG/ParallaxLayer8"]
-position = Vector2(636, 92)
-texture = ExtResource("14_8an1v")
+[node name="VNsystem" type="Node2D" parent="ForestBG/ParallaxLayer8/Novelsys"]
+script = ExtResource("10_8mkm0")
+
+[node name="scrolltimer" type="Timer" parent="ForestBG/ParallaxLayer8/Novelsys/VNsystem"]
+one_shot = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ForestBG/ParallaxLayer8/Novelsys/VNsystem"]
+z_index = 1005
+z_as_relative = false
+offset_left = 242.0
+offset_top = 424.0
+offset_right = 748.0
+offset_bottom = 499.0
+theme = SubResource("Theme_s5k4f")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+
+[node name="Name" type="RichTextLabel" parent="ForestBG/ParallaxLayer8/Novelsys/VNsystem"]
+z_index = 103
+z_as_relative = false
+offset_left = 236.0
+offset_top = 396.0
+offset_right = 373.0
+offset_bottom = 432.0
+bbcode_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ForestBG/ParallaxLayer8/Novelsys/VNsystem"]
+position = Vector2(284, 301)
+scale = Vector2(0.294565, 0.280435)
+sprite_frames = SubResource("SpriteFrames_s2ap5")
+animation = &"Nameless"
+autoplay = "default"
+script = SubResource("GDScript_jw4pr")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ForestBG/ParallaxLayer8/Novelsys"]
+z_index = 102
+z_as_relative = false
+offset_left = 185.0
+offset_top = 375.0
+offset_right = 792.0
+offset_bottom = 533.0
+texture = ExtResource("12_n7w6l")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 offset_left = 441.0
@@ -285,6 +382,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(-393219, 0, 0, -393218, 0, 0, -393217, 0, 0, -458752, 0, 0, -458751, 0, 0, -458750, 0, 0, -458749, 0, 0, -458748, 0, 0, -458747, 0, 0, -458746, 0, 0, -458745, 0, 0, -458744, 0, 0, -458743, 0, 0, -458742, 0, 0, -458741, 0, 0, -458740, 0, 0, -458739, 0, 0, -458738, 0, 0, -458737, 0, 0, -458736, 0, 0, -458735, 0, 0, -458734, 0, 0, -458733, 0, 0, -458757, 1, 0, -393221, 1, 0, -458756, 65537, 0, -393220, 65537, 0, -327685, 1, 1, -327684, 65537, 1, -524268, 1, 0, -458732, 1, 0, -524267, 65537, 0, -458731, 65537, 0, -393196, 1, 1, -393195, 65537, 1, -327683, 0, 0, -262147, 4, 1, -327682, 0, 0, -262146, 4, 1, -393198, 0, 0, -327662, 4, 1, -393197, 0, 0, -327661, 65540, 1, -393200, 0, 0, -327664, 4, 1, -393199, 0, 0, -327663, 65540, 1, -393202, 0, 0, -327666, 4, 1, -393201, 0, 0, -327665, 65540, 1, -393204, 0, 0, -327668, 4, 1, -393203, 0, 0, -327667, 65540, 1, -393206, 0, 0, -327670, 4, 1, -393205, 0, 0, -327669, 65540, 1, -393208, 0, 0, -327672, 4, 1, -393207, 0, 0, -327671, 65540, 1, -393210, 0, 0, -327674, 4, 1, -393209, 0, 0, -327673, 65540, 1, -393212, 0, 0, -327676, 4, 1, -393211, 0, 0, -327675, 65540, 1, -393214, 0, 0, -327678, 4, 1, -393213, 0, 0, -327677, 65540, 1, -393216, 0, 0, -327680, 4, 1, -393215, 0, 0, -327679, 65540, 1, -327681, 0, 0, -262145, 65540, 1, -196611, 5, 0, -131075, 5, 1, -196610, 7, 0, -131074, 7, 0, -65539, 5, 0, -3, 5, 1, -65538, 7, 0, -2, 7, 0, 65533, 5, 0, 131069, 5, 1, 65534, 7, 0, 131070, 7, 0, 196605, 5, 0, 262141, 5, 1, 196606, 7, 0, 262142, 7, 0, 327677, 5, 0, 393213, 5, 1, 327678, 7, 0, 393214, 7, 0, 458749, 5, 0, 524285, 5, 1, 458750, 7, 0, 524286, 7, 0, -262126, 7, 0, -196590, 7, 1, -262125, 65543, 0, -196589, 65543, 1, -131054, 7, 0, -65518, 7, 1, -131053, 65543, 0, -65517, 65543, 1, 18, 7, 0, 65554, 7, 1, 19, 65543, 0, 65555, 65543, 1, 131090, 7, 0, 196626, 7, 1, 131091, 65543, 0, 196627, 65543, 1, 262162, 7, 0, 327698, 7, 1, 262163, 65543, 0, 327699, 65543, 1, 393234, 7, 0, 458770, 7, 1, 393235, 65543, 0, 458771, 65543, 1, 589822, 7, 0, 655358, 7, 0, -196609, 7, 0, -131073, 7, 0, -65537, 7, 0, -1, 7, 0, 65535, 7, 0, 131071, 7, 0, 196607, 7, 0, 262143, 7, 0, 327679, 7, 0, 393215, 7, 0, 458751, 7, 0, 524287, 7, 0, 589823, 7, 0, 655359, 7, 0, -262144, 7, 0, -196608, 7, 0, -131072, 7, 0, -65536, 7, 0, 0, 7, 0, 65536, 7, 0, 131072, 7, 0, 196608, 7, 0, 262144, 7, 0, 327680, 7, 0, 393216, 7, 0, 458752, 7, 0, 524288, 7, 0, 589824, 7, 0, -262143, 7, 0, -196607, 7, 0, -131071, 7, 0, -65535, 7, 0, 1, 7, 0, 65537, 7, 0, 131073, 7, 0, 196609, 7, 0, 262145, 7, 0, 327681, 7, 0, 393217, 7, 0, 458753, 7, 0, 524289, 7, 0, 589825, 7, 0, -262142, 7, 0, -196606, 7, 0, -131070, 7, 0, -65534, 7, 0, 2, 7, 0, 65538, 7, 0, 131074, 7, 0, 196610, 7, 0, 262146, 7, 0, 327682, 7, 0, 393218, 7, 0, 458754, 7, 0, 524290, 7, 0, 589826, 7, 0, -262141, 7, 0, -196605, 7, 0, -131069, 7, 0, -65533, 7, 0, 3, 7, 0, 65539, 7, 0, 131075, 7, 0, 196611, 7, 0, 262147, 7, 0, 327683, 7, 0, 393219, 7, 0, 458755, 7, 0, 524291, 7, 0, 589827, 7, 0, -262140, 7, 0, -196604, 7, 0, -131068, 7, 0, -65532, 7, 0, 4, 7, 0, 65540, 7, 0, 131076, 7, 0, 196612, 7, 0, 262148, 7, 0, 327684, 7, 0, 393220, 7, 0, 458756, 7, 0, 524292, 7, 0, 589828, 7, 0, -262139, 7, 0, -196603, 7, 0, -131067, 7, 0, -65531, 7, 0, 5, 7, 0, 65541, 7, 0, 131077, 7, 0, 196613, 7, 0, 262149, 7, 0, 327685, 7, 0, 393221, 7, 0, 458757, 7, 0, 524293, 7, 0, 589829, 7, 0, -262138, 7, 0, -196602, 7, 0, -131066, 7, 0, -65530, 7, 0, 6, 7, 0, 65542, 7, 0, 131078, 7, 0, 196614, 7, 0, 262150, 7, 0, 327686, 7, 0, 393222, 7, 0, 458758, 7, 0, 524294, 7, 0, 589830, 7, 0, -262137, 7, 0, -196601, 7, 0, -131065, 7, 0, -65529, 7, 0, 7, 7, 0, 65543, 7, 0, 131079, 7, 0, 196615, 7, 0, 262151, 7, 0, 327687, 7, 0, 393223, 7, 0, 458759, 7, 0, 524295, 7, 0, 589831, 7, 0, -262136, 7, 0, -196600, 7, 0, -131064, 7, 0, -65528, 7, 0, 8, 7, 0, 65544, 7, 0, 131080, 7, 0, 196616, 7, 0, 262152, 7, 0, 327688, 7, 0, 393224, 7, 0, 458760, 7, 0, 524296, 7, 0, 589832, 7, 0, -262135, 7, 0, -196599, 7, 0, -131063, 7, 0, -65527, 7, 0, 9, 7, 0, 65545, 7, 0, 131081, 7, 0, 196617, 7, 0, 262153, 7, 0, 327689, 7, 0, 393225, 7, 0, 458761, 7, 0, 524297, 7, 0, 589833, 7, 0, -262134, 7, 0, -196598, 7, 0, -131062, 7, 0, -65526, 7, 0, 10, 7, 0, 65546, 7, 0, 131082, 7, 0, 196618, 7, 0, 262154, 7, 0, 327690, 7, 0, 393226, 7, 0, 458762, 7, 0, 524298, 7, 0, 589834, 7, 0, -262133, 7, 0, -196597, 7, 0, -131061, 7, 0, -65525, 7, 0, 11, 7, 0, 65547, 7, 0, 131083, 7, 0, 196619, 7, 0, 262155, 7, 0, 327691, 7, 0, 393227, 7, 0, 458763, 7, 0, 524299, 7, 0, 589835, 7, 0, -262132, 7, 0, -196596, 7, 0, -131060, 7, 0, -65524, 7, 0, 12, 7, 0, 65548, 7, 0, 131084, 7, 0, 196620, 7, 0, 262156, 7, 0, 327692, 7, 0, 393228, 7, 0, 458764, 7, 0, 524300, 7, 0, 589836, 7, 0, -262131, 7, 0, -196595, 7, 0, -131059, 7, 0, -65523, 7, 0, 13, 7, 0, 65549, 7, 0, 131085, 7, 0, 196621, 7, 0, 262157, 7, 0, 327693, 7, 0, 393229, 7, 0, 458765, 7, 0, 524301, 7, 0, 589837, 7, 0, -262130, 7, 0, -196594, 7, 0, -131058, 7, 0, -65522, 7, 0, 14, 7, 0, 65550, 7, 0, 131086, 7, 0, 196622, 7, 0, 262158, 7, 0, 327694, 7, 0, 393230, 7, 0, 458766, 7, 0, 524302, 7, 0, 589838, 7, 0, -262129, 7, 0, -196593, 7, 0, -131057, 7, 0, -65521, 7, 0, 15, 7, 0, 65551, 7, 0, 131087, 7, 0, 196623, 7, 0, 262159, 7, 0, 327695, 7, 0, 393231, 7, 0, 458767, 7, 0, 524303, 7, 0, 589839, 7, 0, -262128, 7, 0, -196592, 7, 0, -131056, 7, 0, -65520, 7, 0, 16, 7, 0, 65552, 7, 0, 131088, 7, 0, 196624, 7, 0, 262160, 7, 0, 327696, 7, 0, 393232, 7, 0, 458768, 7, 0, 524304, 7, 0, 589840, 7, 0, -262127, 7, 0, -196591, 7, 0, -131055, 7, 0, -65519, 7, 0, 17, 7, 0, 65553, 7, 0, 131089, 7, 0, 196625, 7, 0, 262161, 7, 0, 327697, 7, 0, 393233, 7, 0, 458769, 7, 0, 524305, 7, 0, 589841, 7, 0)
 
 [node name="Dialogue starter" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogue starter"]
@@ -292,15 +390,15 @@ position = Vector2(1502, 164)
 shape = SubResource("RectangleShape2D_5s4lw")
 
 [node name="Scene Changer" type="Area2D" parent="."]
+visible = false
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scene Changer"]
+visible = false
 position = Vector2(2226, 1950)
 shape = SubResource("RectangleShape2D_a7tga")
 
-[node name="CanvasGroup" type="ParallaxBackground" parent="."]
-follow_viewport_enabled = true
-
+[connection signal="timeout" from="ForestBG/ParallaxLayer8/Novelsys/VNsystem/scrolltimer" to="ForestBG/ParallaxLayer8/Novelsys/VNsystem" method="_on_scroll_timer_timeout" flags=18]
 [connection signal="button_up" from="TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="body_entered" from="Scene Changer" to="." method="_on_scene_changer_body_entered"]
